@@ -3,9 +3,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-@ini_set('log_errors', '1');
-@ini_set('error_log', '/tmp/profileanalytics-debug.log');
-
 /**
  * Add a personal analytics link to the user profile navigation.
  *
@@ -23,18 +20,11 @@ function local_profileanalytics_extend_navigation_user(
     ?stdClass $course,
     ?context $coursecontext
 ): void {
-    global $USER;
-
-    error_log('local_profileanalytics: extend_navigation_user called for targetuser=' . (int)$user->id .
-        ' currentuser=' . ((int)($USER->id ?? 0)));
-
     if (!isloggedin() || isguestuser()) {
-        error_log('local_profileanalytics: skipping because current session is not a logged in non-guest user');
         return;
     }
 
     if (!local_profileanalytics_can_view_user((int)$user->id)) {
-        error_log('local_profileanalytics: skipping because local_profileanalytics_can_view_user returned false for targetuser=' . (int)$user->id);
         return;
     }
 
@@ -46,9 +36,6 @@ function local_profileanalytics_extend_navigation_user(
         null,
         'local_profileanalytics'
     );
-
-    error_log('local_profileanalytics: navigation link added for targetuser=' . (int)$user->id .
-        ' url=' . $url->out(false));
 }
 
 /**
@@ -60,25 +47,17 @@ function local_profileanalytics_extend_navigation_user(
 function local_profileanalytics_can_view_user(int $targetuserid): bool {
     global $USER;
 
-    error_log('local_profileanalytics: can_view_user check targetuser=' . $targetuserid .
-        ' currentuser=' . ((int)($USER->id ?? 0)));
-
     if (!isloggedin() || isguestuser()) {
-        error_log('local_profileanalytics: can_view_user false because current session is not a logged in non-guest user');
         return false;
     }
 
     if ((int)$USER->id === $targetuserid || is_siteadmin()) {
-        error_log('local_profileanalytics: can_view_user true because same user or site admin');
         return true;
     }
 
     $context = context_user::instance($targetuserid);
-    $canviewdetails = has_capability('moodle/user:viewdetails', $context);
-    $canviewalldetails = has_capability('moodle/user:viewalldetails', $context);
-    error_log('local_profileanalytics: capability results viewdetails=' . ($canviewdetails ? '1' : '0') .
-        ' viewalldetails=' . ($canviewalldetails ? '1' : '0'));
-    return $canviewdetails || $canviewalldetails;
+    return has_capability('moodle/user:viewdetails', $context)
+        || has_capability('moodle/user:viewalldetails', $context);
 }
 
 /**
@@ -96,13 +75,7 @@ function local_profileanalytics_myprofile_navigation(
     bool $iscurrentuser,
     ?stdClass $course
 ): void {
-    global $USER;
-
-    error_log('local_profileanalytics: myprofile_navigation called for targetuser=' . (int)$user->id .
-        ' currentuser=' . ((int)($USER->id ?? 0)) . ' iscurrentuser=' . ($iscurrentuser ? '1' : '0'));
-
     if (!local_profileanalytics_can_view_user((int)$user->id)) {
-        error_log('local_profileanalytics: myprofile_navigation skipped because user cannot view target profile analytics');
         return;
     }
 
@@ -114,9 +87,7 @@ function local_profileanalytics_myprofile_navigation(
             $categoryname,
             get_string('pluginname', 'local_profileanalytics')
         ));
-        error_log('local_profileanalytics: myprofile category added');
     } catch (\Throwable $e) {
-        error_log('local_profileanalytics: myprofile category add skipped/failed: ' . $e->getMessage());
     }
 
     try {
@@ -127,8 +98,6 @@ function local_profileanalytics_myprofile_navigation(
             null,
             $url
         ));
-        error_log('local_profileanalytics: myprofile node added url=' . $url->out(false));
     } catch (\Throwable $e) {
-        error_log('local_profileanalytics: myprofile node add failed: ' . $e->getMessage());
     }
 }
