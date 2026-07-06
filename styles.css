@@ -1,0 +1,209 @@
+.local-profileanalytics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.local-profileanalytics .lpa-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #d6e2f0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f6fbff 0%, #ffffff 100%);
+}
+
+.local-profileanalytics .lpa-hero-name {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    color: #19324d;
+}
+
+.local-profileanalytics .lpa-hero-meta {
+    margin: 0;
+    color: #5b6f86;
+}
+
+.local-profileanalytics .lpa-risk-badge,
+.local-profileanalytics .lpa-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.local-profileanalytics .lpa-risk-ok,
+.local-profileanalytics .lpa-pill-ok {
+    background: #e8f7ee;
+    color: #16794b;
+}
+
+.local-profileanalytics .lpa-risk-warning,
+.local-profileanalytics .lpa-pill-warning {
+    background: #fff4dd;
+    color: #b56a00;
+}
+
+.local-profileanalytics .lpa-risk-danger,
+.local-profileanalytics .lpa-pill-danger {
+    background: #fde8e7;
+    color: #c23c3a;
+}
+
+.local-profileanalytics .lpa-risk-muted,
+.local-profileanalytics .lpa-pill-muted {
+    background: #edf2f7;
+    color: #516173;
+}
+
+.local-profileanalytics .lpa-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.local-profileanalytics .lpa-card,
+.local-profileanalytics .lpa-panel {
+    border: 1px solid #d6e2f0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.local-profileanalytics .lpa-card {
+    padding: 1rem 1.1rem;
+    border-top-width: 3px;
+}
+
+.local-profileanalytics .lpa-card-ok {
+    border-top-color: #1f9d6a;
+}
+
+.local-profileanalytics .lpa-card-warning {
+    border-top-color: #ef9f27;
+}
+
+.local-profileanalytics .lpa-card-danger {
+    border-top-color: #e24b4a;
+}
+
+.local-profileanalytics .lpa-card-info,
+.local-profileanalytics .lpa-card-muted {
+    border-top-color: #3d7edb;
+}
+
+.local-profileanalytics .lpa-card-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #5d7088;
+    letter-spacing: 0.03em;
+}
+
+.local-profileanalytics .lpa-card-value {
+    margin-top: 0.4rem;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1c2f45;
+}
+
+.local-profileanalytics .lpa-card-meta {
+    margin-top: 0.35rem;
+    color: #5d7088;
+    font-size: 0.9rem;
+}
+
+.local-profileanalytics .lpa-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.local-profileanalytics .lpa-panel {
+    padding: 1rem 1.1rem;
+}
+
+.local-profileanalytics .lpa-panel h4 {
+    margin: 0 0 0.9rem;
+    color: #19324d;
+}
+
+.local-profileanalytics .lpa-panel-table {
+    padding-bottom: 0.5rem;
+}
+
+.local-profileanalytics .lpa-empty {
+    margin: 0;
+    color: #6b7f95;
+}
+
+.local-profileanalytics .lpa-action-list,
+.local-profileanalytics .lpa-timeline,
+.local-profileanalytics .lpa-stat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.local-profileanalytics .lpa-action-item,
+.local-profileanalytics .lpa-timeline-item,
+.local-profileanalytics .lpa-stat-item {
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid #e8eef5;
+}
+
+.local-profileanalytics .lpa-action-item:first-child,
+.local-profileanalytics .lpa-timeline-item:first-child,
+.local-profileanalytics .lpa-stat-item:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.local-profileanalytics .lpa-action-course,
+.local-profileanalytics .lpa-timeline-course,
+.local-profileanalytics .lpa-stat-label {
+    font-weight: 600;
+    color: #20354d;
+}
+
+.local-profileanalytics .lpa-action-meta,
+.local-profileanalytics .lpa-timeline-meta {
+    color: #61758e;
+    font-size: 0.9rem;
+}
+
+.local-profileanalytics .lpa-timeline-date,
+.local-profileanalytics .lpa-stat-value {
+    color: #35516f;
+}
+
+.local-profileanalytics .lpa-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.local-profileanalytics .lpa-status-cell {
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .local-profileanalytics .lpa-card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .local-profileanalytics .lpa-hero,
+    .local-profileanalytics .lpa-layout,
+    .local-profileanalytics .lpa-card-grid {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+}
