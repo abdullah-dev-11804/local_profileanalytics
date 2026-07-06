@@ -13,7 +13,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param stdClass $user
  * @param context_user $usercontext
  * @param stdClass|null $course
- * @param context_course|null $coursecontext
+ * @param context|null $coursecontext
  * @return void
  */
 function local_profileanalytics_extend_navigation_user(
@@ -21,7 +21,7 @@ function local_profileanalytics_extend_navigation_user(
     stdClass $user,
     context_user $usercontext,
     ?stdClass $course,
-    ?context_course $coursecontext
+    ?context $coursecontext
 ): void {
     global $USER;
 
