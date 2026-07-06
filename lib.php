@@ -80,3 +80,55 @@ function local_profileanalytics_can_view_user(int $targetuserid): bool {
         ' viewalldetails=' . ($canviewalldetails ? '1' : '0'));
     return $canviewdetails || $canviewalldetails;
 }
+
+/**
+ * Add a visible node to the rendered user profile tree.
+ *
+ * @param \core_user\output\myprofile\tree $tree
+ * @param stdClass $user
+ * @param bool $iscurrentuser
+ * @param stdClass|null $course
+ * @return void
+ */
+function local_profileanalytics_myprofile_navigation(
+    \core_user\output\myprofile\tree $tree,
+    stdClass $user,
+    bool $iscurrentuser,
+    ?stdClass $course
+): void {
+    global $USER;
+
+    error_log('local_profileanalytics: myprofile_navigation called for targetuser=' . (int)$user->id .
+        ' currentuser=' . ((int)($USER->id ?? 0)) . ' iscurrentuser=' . ($iscurrentuser ? '1' : '0'));
+
+    if (!local_profileanalytics_can_view_user((int)$user->id)) {
+        error_log('local_profileanalytics: myprofile_navigation skipped because user cannot view target profile analytics');
+        return;
+    }
+
+    $categoryname = 'profileanalytics';
+    $url = new moodle_url('/local/profileanalytics/view.php', ['id' => (int)$user->id]);
+
+    try {
+        $tree->add_category(new \core_user\output\myprofile\category(
+            $categoryname,
+            get_string('pluginname', 'local_profileanalytics')
+        ));
+        error_log('local_profileanalytics: myprofile category added');
+    } catch (\Throwable $e) {
+        error_log('local_profileanalytics: myprofile category add skipped/failed: ' . $e->getMessage());
+    }
+
+    try {
+        $tree->add_node(new \core_user\output\myprofile\node(
+            $categoryname,
+            'profileanalyticslink',
+            get_string('pluginname', 'local_profileanalytics'),
+            null,
+            $url
+        ));
+        error_log('local_profileanalytics: myprofile node added url=' . $url->out(false));
+    } catch (\Throwable $e) {
+        error_log('local_profileanalytics: myprofile node add failed: ' . $e->getMessage());
+    }
+}
